@@ -10,7 +10,8 @@ const mongoose = require('mongoose');       // for mongodb
 const config = require('./config/database');
 
 // create connection for db
-mongoose.createConnection(config.database);
+mongoose.Promise = global.Promise;
+mongoose.connect(config.database, {useMongoClient: true});
 
 // successful connection message 
 mongoose.connection.on('connected', () => {
@@ -22,7 +23,7 @@ mongoose.connection.on('error', (err) => {
     console.log('Database error: '+err);
 });
 
-// server
+// server settings
 const app = express();                      // initialize app
 const port = 3000;                          // initialize backend port
 
