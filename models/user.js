@@ -40,7 +40,7 @@ module.exports.addUser = function(newUser, callback){
     // bcrypt the password
     bcrypt.genSalt(10, function(err, salt){
         bcrypt.hash(newUser.password, salt, function(err, hash){
-            //if(err) throw err;
+            if(err) throw err;
             newUser.password = hash;    // replace password with encrypted password
             newUser.save(callback);
         });
