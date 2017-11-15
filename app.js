@@ -6,6 +6,22 @@ const cors = require('cors');               // create access to other localhost
 const passport = require('passport');       // for web token
 const mongoose = require('mongoose');       // for mongodb
 
+// database config folder
+const config = require('./config/database');
+
+// create connection for db
+mongoose.createConnection(config.database);
+
+// successful connection message 
+mongoose.connection.on('connected', () => {
+    console.log('Connected to database: '+config.database);
+});
+
+// error connection message
+mongoose.connection.on('error', (err) => {
+    console.log('Database error: '+err);
+});
+
 // server
 const app = express();                      // initialize app
 const port = 3000;                          // initialize backend port
