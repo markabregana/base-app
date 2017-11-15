@@ -32,6 +32,10 @@ const users = require('./routes/users');    // initialize /routes/users folder
 // Middleware
 app.use(cors());                            // cors middleware
 app.use(bodyParser.json());                 // Body Parser Middleware
+app.use(passport.initialize());             // passport initialize middleware
+app.use(passport.session());                // passport session
+
+require('./config/passport')(passport);     // initlialize passport config middleware
 
 app.use('/users', users);                   // routes ./routes/users to /users
 
