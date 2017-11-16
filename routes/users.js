@@ -34,7 +34,7 @@ router.post('/authenticate', (req, res, next) => {
 
     // get user details
     User.getUserByUsername(username, function(err, user){
-        if(err) throw err;
+        if(err) throw err; // error for invalid username
 
         // if user is found
         if(!user){
