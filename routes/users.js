@@ -48,7 +48,7 @@ router.post('/authenticate', (req, res, next) => {
             // match password
             if(isMatch){
                 // sign in user and set token expiration
-                const token = jwt.sign({data: user}, config.secret, {
+                const token = jwt.sign({ data: user }, config.secret, {
                     expiresIn: 604800 // expires in week
                 });
 
@@ -72,8 +72,10 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 // Profile
-router.get('/profile', (req, res, next) => {
-    res.send('PROFILE');
+// page protection
+// passport.authenticate('jwt', {session:false})
+router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+    res.json({user: req.user}); // get user info
 });
 
 
